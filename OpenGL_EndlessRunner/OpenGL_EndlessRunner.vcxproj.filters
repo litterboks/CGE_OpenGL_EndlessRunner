@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="compositeGraphic.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="graphic.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="house.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="houserow.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="mypoint.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="myrectangle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="mytriangle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="tga.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glerror.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="houserow.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="house.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="graphic.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="mypoint.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="mytriangle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="myrectangle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="tga.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="compositeGraphic.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="glerror.cpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="houseside.tga">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="roof.tga">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="elf.tga">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="house.tga">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{226eb1d5-31f9-468a-92b9-0de9cba9554d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{c59b9e16-7a7d-421e-ad62-da82c3306d7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{bc824aa2-c69c-4824-bf0a-24ff336f2d07}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
