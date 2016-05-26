@@ -1,0 +1,1 @@
+void reportGLError(const char * msg);
