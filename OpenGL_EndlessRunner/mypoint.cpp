@@ -3,6 +3,17 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+MyPoint::MyPoint()
+{
+}
+
+MyPoint::MyPoint(float posX, float posY, float posZ)
+{
+	this->posX = posX;
+	this->posY = posY;
+	this->posZ = posZ;
+}
+
 void MyPoint::move(float offsetX, float offsetY, float offsetZ) {
 	this->posX += offsetX;
 	this->posY += offsetY;

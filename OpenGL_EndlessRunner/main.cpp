@@ -22,7 +22,9 @@ void display(void)
 	glRotatef(rotation_x, 1, 0, 0);
 	glRotatef(rotation_y, 0, 1, 0);
 	glRotatef(rotation_z, 0, 0, 1);
-
+	/*MyRectangle* r1 = new MyRectangle(-1.0f, 0.0f, 1.0f, 4.0f, 4.0f, 0, 0, 0);
+	r1->setTexture("house.tga");
+	r1->draw();*/
 	HouseRow* hr1 = new HouseRow(-12.0f, 1.0f, 1.0f, 4.0f, 8);
 	hr1->draw();
 
@@ -51,7 +53,7 @@ void init(int width, int height)
 {
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat mat_shininess[] = { 5.0 };
-	GLfloat light_position[] = { 2.0, 1.0, 1.0, 0.0 };
+	GLfloat light_position[] = { -1, 0, 1, 0.0 };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
@@ -82,9 +84,9 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
-	glutInitWindowSize(1600, 800);
+	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(0, 0);
-	window = glutCreateWindow("HouseRow");
+	window = glutCreateWindow("EndlessRunner");
 	glutDisplayFunc(&display);
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);

@@ -13,121 +13,48 @@
 
 
 
-MyRectangle::MyRectangle(float posX = 0, float posY = 0, float posZ = 0, float height = 1, float width = 1, float rotX = 0, float rotY = 0, float rotZ = 0, float normalX=0, float normalY=0, float normalZ=0) {
+MyRectangle::MyRectangle(float posX = 0, float posY = 0, float posZ = 0, float height = 1, float width = 1, float rotX = 0, float rotY = 0, float rotZ = 0) {
 
-	this->normalX = normalX;
-	this->normalY = normalY;
-	this->normalZ = normalZ;
+	triA = MyTriangle(posX, posY, posZ, height, width, rotX, rotY, rotZ);
+	triA.mapTexture(0, 0.f, 0.f);
+	triA.mapTexture(1, 1.f, 0.f);
+	triA.mapTexture(2, 1.f, 1.f);
 
-	cornerA.posX = posX;
-	cornerA.posY = posY;
-	cornerA.posZ = posZ;
-
-	cornerB.posX = posX + width;
-	cornerB.posY = posY;
-	cornerB.posZ = posZ;
-
-	cornerC.posX = posX + width;
-	cornerC.posY = posY + height;
-	cornerC.posZ = posZ;
-
-	cornerD.posX = posX;
-	cornerD.posY = posY + height;
-	cornerD.posZ = posZ;
-
-	if (fmod(rotX, 360) != 0.0f) {
-		cornerB.rotate(cornerA, rotX, 'x');
-		cornerC.rotate(cornerA, rotX, 'x');
-		cornerD.rotate(cornerA, rotX, 'x');
-	}
-	if (fmod(rotY, 360) != 0.0f) {
-		cornerB.rotate(cornerA, rotY, 'y');
-		cornerC.rotate(cornerA, rotY, 'y');
-		cornerD.rotate(cornerA, rotY, 'y');
-	}
-	if (fmod(rotZ, 360) != 0.0f) {
-		cornerB.rotate(cornerA, rotZ, 'z');
-		cornerC.rotate(cornerA, rotZ, 'z');
-		cornerD.rotate(cornerA, rotZ, 'z');
-	}
+	triB = MyTriangle(MyPoint(posX, posY, posZ), MyPoint(posX, posY+height, posZ), MyPoint(posX+width,posY+height,posZ));
+	triB.flipNormals();
+	triB.calculateNormal();
+	triB.mapTexture(0, 0.f, 0.f);
+	triB.mapTexture(1, 0.f, 1.f);
+	triB.mapTexture(2, 1.f, 1.f);
 }
 
 
 void MyRectangle::draw()
 {
-	GLuint texture;
-	tgaInfo *info = 0;
-
-	GLsizei w, h;
-	int mode;
-	info = tgaLoad(this->texture);
-
-	if (info->status != TGA_OK) {
-		fprintf(stderr, "error loading texture image: %d\n", info->status);
-
-		return;
-	}
-	if (info->width != info->height) {
-		fprintf(stderr, "Image size %d x %d is not rectangular, giving up.\n",
-			info->width, info->height);
-		return;
-	}
-
-	mode = info->pixelDepth / 8;  // will be 3 for rgb, 4 for rgba
-	glGenTextures(1, &texture);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	// Upload the texture bitmap. 
-	w = info->width;
-	h = info->height;
-
-	//reportGLError("before uploading texture");
-	GLint format = (mode == 4) ? GL_RGBA : GL_RGB;
-	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format,
-		GL_UNSIGNED_BYTE, info->imageData);
-	//reportGLError("after uploading texture");
-
-	tgaDestroy(info);
-
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	glBegin(GL_QUADS);
-	glNormal3f(normalX, normalY, normalZ);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(cornerA.posX, cornerA.posY, cornerA.posZ);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(cornerB.posX, cornerB.posY, cornerB.posZ);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(cornerC.posX, cornerC.posY, cornerC.posZ);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(cornerD.posX, cornerD.posY, cornerD.posZ);
-	glEnd();
+	triA.draw();
+	triB.draw();
 }
 
 void MyRectangle::move(float x, float y, float z)
 {
-	cornerA.move(x, y, z);
-	cornerB.move(x, y, z);
-	cornerC.move(x, y, z);
-	cornerD.move(x, y, z);
+	triA.move(x, y, z);
+	triB.move(x, y, z);
 }
 
 void MyRectangle::scale(float x, float y, float z)
 {
-	cornerA.multiply(x, y, z);
-	cornerB.multiply(x, y, z);
-	cornerC.multiply(x, y, z);
-	cornerD.multiply(x, y, z);
+	triA.scale(x, y, z);
+	triB.scale(x, y, z);
+}
+
+void MyRectangle::rotate(MyPoint basePoint, float transformAngle, char axis)
+{
+	triA.rotate(basePoint, transformAngle, axis);
+	triB.rotate(basePoint, transformAngle, axis);
 }
 
 void MyRectangle::setTexture(std::string texture)
 {
-	char* cstr = new char[texture.length() + 1];
-	strcpy(cstr, texture.c_str());
-	this->texture = cstr;
+	triA.setTexture(texture);
+	triB.setTexture(texture);
 }

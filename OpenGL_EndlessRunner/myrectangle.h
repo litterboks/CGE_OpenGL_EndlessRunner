@@ -3,26 +3,22 @@
 
 #include "graphic.h"
 #include "mypoint.h"
+#include "mytriangle.h"
 #include <string>
 
 class MyRectangle : public Graphic {
 public:
-	MyRectangle(float posX, float posY, float posZ, float height, float width, float rotX, float rotY, float rotZ, float normalX, float normalY, float normalZ);
+	MyRectangle(float posX, float posY, float posZ, float height, float width, float rotX, float rotY, float rotZ);
 
 	virtual void draw();
 	virtual void move(float, float, float);
 	virtual void scale(float, float, float);
+	virtual void rotate(MyPoint basePoint, float transformAngle, char axis);
 	virtual void setTexture(std::string texture);
 
 private:
-	//corners of the rectangle, counter clockwise
-	MyPoint cornerA;
-	MyPoint cornerB;
-	MyPoint cornerC;
-	MyPoint cornerD;
-	float normalX;
-	float normalY;
-	float normalZ;
+	MyTriangle triA;
+	MyTriangle triB;
 	char* texture;
 };
 
