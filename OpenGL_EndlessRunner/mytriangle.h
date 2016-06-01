@@ -4,9 +4,11 @@
 #include "graphic.h"
 #include "mypoint.h"
 
+
 class MyTriangle : public Graphic {
 public:
 	MyTriangle();
+	~MyTriangle();
 	MyTriangle(MyPoint cornerA, MyPoint cornerB, MyPoint cornerC);
 	MyTriangle(float posX, float posY, float posZ, float height, float width, float rotX, float rotY, float rotZ);
 

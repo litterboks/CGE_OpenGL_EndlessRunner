@@ -36,6 +36,12 @@ void CompositeGraphic::scale(float x, float y, float z)
 	}
 }
 
+void CompositeGraphic::rotate(MyPoint basePoint, float angle, char axis) {
+	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
+		(*it)->rotate(basePoint, angle, axis);
+	}
+}
+
 CompositeGraphic::CompositeGraphic(float x, float y, float z) {
 	this->position.posX = x;
 	this->position.posY = y;

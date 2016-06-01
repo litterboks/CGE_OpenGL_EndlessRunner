@@ -1,4 +1,5 @@
 #include "graphic.h"
+#include "mypoint.h"
 
 Graphic::Graphic()
 {
@@ -19,6 +20,11 @@ void Graphic::move(float, float, float)
 void Graphic::scale(float, float, float)
 {
 }
+
+void Graphic::rotate(MyPoint basePoint, float, float)
+{
+}
+
 
 void Graphic::add(Graphic * graphic)
 {

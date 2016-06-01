@@ -12,29 +12,22 @@
 int window;
 float rotation_x, rotation_y, rotation_z;
 int animating = 1;
+float rot = 0;
+House h1 = House(.0f, -1.0f, 1.0f);
 
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glTranslatef(0, 0, -15);
-	glRotatef(rotation_x, 1, 0, 0);
-	glRotatef(rotation_y, 0, 1, 0);
-	glRotatef(rotation_z, 0, 0, 1);
-	/*MyRectangle* r1 = new MyRectangle(-1.0f, 0.0f, 1.0f, 4.0f, 4.0f, 0, 0, 0);
-	r1->setTexture("house.tga");
-	r1->draw();*/
-	HouseRow* hr1 = new HouseRow(-12.0f, 1.0f, 1.0f, 4.0f, 8);
-	hr1->draw();
-
-	hr1->move(0.0f, -4.0f, 0.0f);
-	hr1->draw();
-	hr1->move(0.0f, 12.0f, 0.0f);
-	hr1->scale(0.5f, 0.5f, 0.5f);
-	hr1->draw();
-	glDisable(GL_TEXTURE_2D);
+	glTranslatef(0, -2, -15);
+	glPushMatrix();
+	glRotatef(rot, 0, 1, 0);
+	rot += 3;
+	h1.draw();
+	glPopMatrix();
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void resize(int width, int height)
@@ -52,8 +45,8 @@ void resize(int width, int height)
 void init(int width, int height)
 {
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 5.0 };
-	GLfloat light_position[] = { -1, 0, 1, 0.0 };
+	GLfloat mat_shininess[] = { 1 };
+	GLfloat light_position[] = { 0, 0, -8, 0.0 };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);

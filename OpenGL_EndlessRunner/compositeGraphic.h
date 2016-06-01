@@ -5,7 +5,6 @@
 #include <list>
 
 #include "graphic.h"
-#include "mypoint.h"
 
 class CompositeGraphic : public Graphic {
 public:
@@ -13,15 +12,18 @@ public:
 	virtual void move(float x,float y,float z);
 	virtual void scale(float x,float y,float z);
 
+	void rotate(MyPoint basePoint, float angle, char axis);
+
 	virtual void add(Graphic* graphic);
 	virtual void remove(Graphic* graphic);
 	virtual typename std::list<typename Graphic*>::iterator* CreateIterator();
 
 protected:
 	CompositeGraphic(float x=-1.0f,float y=-1.0f, float z=1.0);
+	std::list<Graphic*> _graphic;
 	MyPoint position;
 private:
-	std::list<Graphic*> _graphic;
+
 };
 
 #endif

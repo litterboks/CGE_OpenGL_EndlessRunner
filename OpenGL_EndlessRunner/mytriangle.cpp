@@ -4,6 +4,7 @@
 #include "mytriangle.h"
 #include "mypoint.h"
 #include <vector>
+#include <iostream>
 
 #ifndef _GLUT
 #define _GLUT
@@ -15,12 +16,12 @@
 //#include "glerror.h"
 #include "tga.h"
 
-
-GLuint texture2;
-std::string texture;
-tgaInfo *info2 = 0;
-
 MyTriangle::MyTriangle() {
+}
+
+MyTriangle::~MyTriangle() {
+	delete(this->texture);
+	std::cout << "destroying triangle"<< std::endl;
 }
 
 MyTriangle::MyTriangle(MyPoint cornerA, MyPoint cornerB, MyPoint cornerC) {
@@ -88,10 +89,10 @@ void MyTriangle::flipNormals() {
 
 void MyTriangle::draw()
 {
+	GLuint texture2;
 	GLsizei w, h;
 	int mode;
-
-	info2 = tgaLoad(texture);
+	tgaInfo* info2 = tgaLoad(texture);
 
 	if (info2->status != TGA_OK) {
 		fprintf(stderr, "error loading texture2 image: %d\n", info2->status);
@@ -138,6 +139,7 @@ void MyTriangle::draw()
 	glTexCoord2f(texCoord[1][0], texCoord[1][1]); glVertex3f(cornerB.posX, cornerB.posY, cornerB.posZ);
 	glTexCoord2f(texCoord[2][1], texCoord[2][1]); glVertex3f(cornerC.posX, cornerC.posY, cornerC.posZ);
 	glEnd();
+
 }
 
 void MyTriangle::mapTexture(int texCoordSel, float u, float v) {
