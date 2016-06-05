@@ -23,7 +23,6 @@ public:
 	void rotate(MyPoint basePoint, float transformAngle, char axis);
 
 	void setTexture(std::string texture);
-	//void setTexCoordinates(MyPoint texCornerA, MyPoint texCornerB, MyPoint texCornerC);
 
 	MyPoint getCornerA();
 	void setCornerA(MyPoint point);
@@ -45,6 +44,7 @@ private:
 	float normalZ=0.f;
 	char* texture;
 	bool flipped = false;
+	void InitTexture();
 };
 
 #endif

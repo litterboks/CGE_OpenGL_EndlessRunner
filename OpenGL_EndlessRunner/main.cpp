@@ -13,19 +13,20 @@ int window;
 float rotation_x, rotation_y, rotation_z;
 int animating = 1;
 float rot = 0;
-House h1 = House(.0f, -1.0f, 1.0f);
-
+//House h1 = House(.0f, -1.0f, 1.0f);
+MyTriangle *t1 = new MyTriangle(MyPoint(-1.0f, 0.0f, .0f), MyPoint(.0f, 1.0f, .0f), MyPoint(1.0f, .0f, .0f));
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glTranslatef(0, -2, -15);
+	glTranslatef(0, 0, -15);
 	glPushMatrix();
 	glRotatef(rot, 0, 1, 0);
-	rot += 3;
-	h1.draw();
+	rot += .3f;
+	t1->draw();
 	glPopMatrix();
+	
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -62,6 +63,10 @@ void init(int width, int height)
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
 	resize(width, height);
+	t1->setTexture("roof.tga"); 
+	t1->mapTexture(0, 0.f, 0.f);
+	t1->mapTexture(1, 1.f, 0.f);
+	t1->mapTexture(2, 1.f, 1.f);
 }
 
 void keyPressed(unsigned char key, int x, int y)

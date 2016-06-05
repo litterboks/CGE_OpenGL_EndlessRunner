@@ -15,7 +15,7 @@
 
 //#include "glerror.h"
 #include "tga.h"
-
+GLuint texture2;
 MyTriangle::MyTriangle() {
 }
 
@@ -29,6 +29,50 @@ MyTriangle::MyTriangle(MyPoint cornerA, MyPoint cornerB, MyPoint cornerC) {
 	this->cornerB = cornerB;
 	this->cornerC = cornerC;
 	calculateNormal();
+}	
+
+
+void MyTriangle::InitTexture()
+{
+
+	GLsizei w, h;
+	int mode;
+	tgaInfo* info2 = tgaLoad(texture);
+
+	if (info2->status != TGA_OK) {
+		fprintf(stderr, "error loading texture2 image: %d\n", info2->status);
+
+		return;
+	}
+	if (info2->width != info2->height) {
+		fprintf(stderr, "Image size %d x %d is not rectangular, giving up.\n",
+			info2->width, info2->height);
+		return;
+	}
+
+	mode = info2->pixelDepth / 8;  // will be 3 for rgb, 4 for rgba
+	glGenTextures(1, &texture2);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+	// Upload the texture2 bitmap. 
+	w = info2->width;
+	h = info2->height;
+
+	//reportGLError("before uploading texture2");
+
+	GLint format = (mode == 4) ? GL_RGBA : GL_RGB;
+	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format,
+		GL_UNSIGNED_BYTE, info2->imageData);
+	//reportGLError("after uploading texture2");
+
+	tgaDestroy(info2);
 }
 
 MyTriangle::MyTriangle(float posX = 0, float posY = 0, float posZ = 0, float height = 1, float width = 1, float rotX = 0, float rotY = 0, float rotZ = 0) {
@@ -89,46 +133,6 @@ void MyTriangle::flipNormals() {
 
 void MyTriangle::draw()
 {
-	GLuint texture2;
-	GLsizei w, h;
-	int mode;
-	tgaInfo* info2 = tgaLoad(texture);
-
-	if (info2->status != TGA_OK) {
-		fprintf(stderr, "error loading texture2 image: %d\n", info2->status);
-
-		return;
-	}
-	if (info2->width != info2->height) {
-		fprintf(stderr, "Image size %d x %d is not rectangular, giving up.\n",
-			info2->width, info2->height);
-		return;
-	}
-
-	mode = info2->pixelDepth / 8;  // will be 3 for rgb, 4 for rgba
-	glGenTextures(1, &texture2);
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
-	// Upload the texture2 bitmap. 
-	w = info2->width;
-	h = info2->height;
-
-	//reportGLError("before uploading texture2");
-
-	GLint format = (mode == 4) ? GL_RGBA : GL_RGB;
-	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format,
-		GL_UNSIGNED_BYTE, info2->imageData);
-	//reportGLError("after uploading texture2");
-
-	tgaDestroy(info2);
-
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glBindTexture(GL_TEXTURE_2D, texture2);
@@ -176,13 +180,8 @@ void MyTriangle::setTexture(std::string texture)
 	char* cstr = new char[texture.length() + 1];
 	strcpy(cstr, texture.c_str());
 	this->texture = cstr;
+	InitTexture();
 }
-/*
-void MyTriangle::setTexCoordinates(MyPoint texCornerA, MyPoint texCornerB, MyPoint texCornerC) {
-	this->texCornerA = texCornerA;
-	this->texCornerB = texCornerB;
-	this->texCornerC = texCornerC;
-}*/
 
 MyPoint MyTriangle::getCornerA() {
 	return cornerA;
