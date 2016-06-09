@@ -34,7 +34,6 @@ MyTriangle::MyTriangle(MyPoint cornerA, MyPoint cornerB, MyPoint cornerC) {
 
 void MyTriangle::InitTexture()
 {
-
 	GLsizei w, h;
 	int mode;
 	tgaInfo* info2 = tgaLoad(texture);
@@ -144,6 +143,7 @@ void MyTriangle::draw()
 	glTexCoord2f(texCoord[2][1], texCoord[2][1]); glVertex3f(cornerC.posX, cornerC.posY, cornerC.posZ);
 	glEnd();
 
+	glDisable(GL_TEXTURE_2D);
 }
 
 void MyTriangle::mapTexture(int texCoordSel, float u, float v) {

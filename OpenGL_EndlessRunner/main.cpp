@@ -1,32 +1,30 @@
 #include <Windows.h>
 #include <stdio.h>
-
+#include <iostream>
 #include <glut.h>
 
 #include "myrectangle.h"
 #include "house.h"
 #include "houserow.h"
-
+#include "mySphere.h"
 #include "main.h"
 
 int window;
 float rotation_x, rotation_y, rotation_z;
 int animating = 1;
 float rot = 0;
+float velocity_y;
 //House h1 = House(.0f, -1.0f, 1.0f);
-MyTriangle *t1 = new MyTriangle(MyPoint(-1.0f, 0.0f, .0f), MyPoint(.0f, 1.0f, .0f), MyPoint(1.0f, .0f, .0f));
+mySphere *character = new mySphere(1.f, 20, 20, MyPoint(-5.f, -1.f, 1.f));
+
 void display(void)
 {
+	glClearColor(0.0, 0.7, 1.0, 1.0); // sky color is light blue
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-
 	glTranslatef(0, 0, -15);
-	glPushMatrix();
-	glRotatef(rot, 0, 1, 0);
-	rot += .3f;
-	t1->draw();
-	glPopMatrix();
-	
+	character->jump(velocity_y);
+	character->draw();
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -46,8 +44,8 @@ void resize(int width, int height)
 void init(int width, int height)
 {
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 1 };
-	GLfloat light_position[] = { 0, 0, -8, 0.0 };
+	GLfloat mat_shininess[] = { 5.0 };
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
@@ -63,10 +61,6 @@ void init(int width, int height)
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
 	resize(width, height);
-	t1->setTexture("roof.tga"); 
-	t1->mapTexture(0, 0.f, 0.f);
-	t1->mapTexture(1, 1.f, 0.f);
-	t1->mapTexture(2, 1.f, 1.f);
 }
 
 void keyPressed(unsigned char key, int x, int y)
@@ -76,12 +70,20 @@ void keyPressed(unsigned char key, int x, int y)
 		glutDestroyWindow(window);
 		exit(0);
 	}
+	else if (key == 32)
+	{
+		if (!character->isJumping)
+		{
+			velocity_y = 5.f;
+			character->isJumping = true;
+		}
+	}
 }
 
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(0, 0);
 	window = glutCreateWindow("EndlessRunner");

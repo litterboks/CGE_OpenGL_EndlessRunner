@@ -165,6 +165,7 @@
     <ClInclude Include="houserow.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mypoint.h" />
+    <ClInclude Include="mySphere.h" />
     <ClInclude Include="mytriangle.h" />
     <ClInclude Include="myrectangle.h" />
     <ClInclude Include="tga.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mypoint.cpp" />
     <ClCompile Include="myrectangle.cpp" />
+    <ClCompile Include="mySphere.cpp" />
     <ClCompile Include="mytriangle.cpp" />
     <ClCompile Include="tga.cpp" />
   </ItemGroup>
