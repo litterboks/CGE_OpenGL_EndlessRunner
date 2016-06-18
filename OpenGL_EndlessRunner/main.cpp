@@ -43,6 +43,13 @@ void display(void)
 		(*it)->draw();
 		(*it)->move(-0.005,0,0);
 	}
+
+	float rightEnd = platformlist.back()->RightTop.posX;
+
+	if (rightEnd <= 12.0f) {
+		Platform *platform = new Platform(12 + rand() % 7, -3 + rand() % 6, 1, 2, 3 + rand() % 8, 1);
+		platformlist.push_back(platform);
+	}
 	
 	// Move the light around the character
 	moveLight();
