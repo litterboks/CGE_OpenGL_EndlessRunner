@@ -15,31 +15,33 @@ float rotation_x, rotation_y, rotation_z;
 int animating = 1;
 float rot = 0;
 float velocity_y;
+float x_movement = .01f;
 mySphere *character = new mySphere(1.f, 20, 20, MyPoint(-5.f, -1.f, 1.f));
 GLfloat light0_position[] = { 1.0, 1.0, 10.0, 1.0 };
 
-void moveLight()
-{
-	rot += .05;
-	glPushMatrix();
-	glTranslatef(character->position.posX, character->position.posY, character->position.posZ);
-	glRotatef(rot, 0, 0, 1);
-	GLfloat light0_pos[4] = { light0_position[0] - character->position.posX, light0_position[1] - character->position.posY, light0_position[2] - character->position.posZ, 1 };
-	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
-	glPopMatrix();
-}
+void moveLight();
 
 void display(void)
 {
 	glClearColor(0.0, 0.7, 1.0, 1.0); // sky color is light blue
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glLoadIdentity();
+
+	// Move the world
+	glTranslatef(-x_movement, 0, -15);
+	// Move the light around the character
 	moveLight();
 
-	glLoadIdentity();
-	glTranslatef(0, 0, -15);
+	// lets the character jump if velocity_y is > 0
 	character->jump(velocity_y);
-	character->draw();
+
+	// Move the world but not the character
+	glPushMatrix();
+		glTranslatef(x_movement, 0, 0);
+		character->draw();
+	glPopMatrix();
+
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -107,4 +109,15 @@ int main(int argc, char** argv)
 	init(640, 480);
 	glutMainLoop();
 	return 0;
+}
+
+void moveLight()
+{
+	rot += .05;
+	glPushMatrix();
+	glTranslatef(character->position.posX, character->position.posY, character->position.posZ);
+	glRotatef(rot, 0, 0, 1);
+	GLfloat light0_pos[4] = { light0_position[0] - character->position.posX, light0_position[1] - character->position.posY, light0_position[2] - character->position.posZ, 1 };
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
+	glPopMatrix();
 }
