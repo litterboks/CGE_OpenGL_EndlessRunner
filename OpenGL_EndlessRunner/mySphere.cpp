@@ -46,19 +46,19 @@ void mySphere::rotate(MyPoint basePoint, float transformAngle, char axis)
 
 }
 
-void mySphere::jump(float velocity, vector<Platform> p)
+void mySphere::jump(float velocity, list<Platform*> p)
 {
-	vector<Platform> platforms = p;
+	list<Platform*> platforms = p;
 
 	//Collision detection (is the character coliding with the plattforms)
 
 	// Falling of the edge
 	if (!isFalling && !isJumping)
 	{
-		for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
+		for (list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
 
 			//Check if x position of character is not on top of a plattform
-			if (!((this->position.posX > (*it).LeftTop.posX) && (this->position.posX < (*it).RightTop.posX)))
+			if (!((this->position.posX > (*it)->LeftTop.posX) && (this->position.posX < (*it)->RightTop.posX)))
 			{
 				this->isFalling = true;
 			}
@@ -84,13 +84,13 @@ void mySphere::jump(float velocity, vector<Platform> p)
 	else if ((isFalling))
 	{
 		this->move(0, -.005f, 0);
-		for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
+		for (list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
 
 			//Check if x position of character is on top of a plattform
-			if (( this->position.posX > (*it).LeftTop.posX ) && (this->position.posX < (*it).RightTop.posX ))
+			if (( this->position.posX > (*it)->LeftTop.posX ) && (this->position.posX < (*it)->RightTop.posX ))
 			{
 				//Check if y position of charcter toughing the plattform
-				if ( (this->position.posY -0.5 >= (*it).LeftTop.posY - 0.5) && ( this->position.posY -0.5 <= (*it).LeftTop.posY + 0.5) )
+				if ( (this->position.posY -0.5 >= (*it)->LeftTop.posY - 0.5) && ( this->position.posY -0.5 <= (*it)->LeftTop.posY + 0.5) )
 				{
 					this->isFalling = false;
 					this->isJumping = false;

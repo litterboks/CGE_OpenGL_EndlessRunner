@@ -4,7 +4,6 @@
 #include "graphic.h"
 #include "mypoint.h"
 #include "Platform.h"
-#include <vector>
 #include <glut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -21,7 +20,7 @@ public:
 	virtual void move(float, float, float);
 	virtual void scale(float, float, float);
 	virtual void rotate(MyPoint basePoint, float transformAngle, char axis);
-	void jump(float velocity, vector<Platform>);
+	void jump(float velocity, list<Platform*>);
 	void InitTexture();
 	virtual void setTexture(std::string texture);
 	bool isJumping;
