@@ -50,12 +50,18 @@ void display(void)
 		Platform *platform = new Platform(12 + rand() % 7, -3 + rand() % 6, 1, 2, 3 + rand() % 8, 1);
 		platformlist.push_back(platform);
 	}
+
+	float leftEnd = platformlist.front()->LeftTop.posX;
+
+	if (leftEnd <= -100) {
+		Platform *platform = platformlist.front();
+		delete platform;
+		platformlist.pop_front();
+	}
 	
 	// Move the light around the character
 	moveLight();
 	character->draw();
-
-
 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -105,7 +111,7 @@ void keyPressed(unsigned char key, int x, int y)
 	{
 		if (!character->isJumping)
 		{
-			velocity_y = 5.f;
+			velocity_y = character->position.posY + 5.f;
 			character->isJumping = true;
 		}
 	}
@@ -122,6 +128,7 @@ int main(int argc, char** argv)
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);
 	init(640, 480);
+	srand(time_t());
 	p->setTexture("roof.tga");
 	p2->setTexture("roof.tga");
 
