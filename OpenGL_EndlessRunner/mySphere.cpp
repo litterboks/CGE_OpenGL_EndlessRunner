@@ -50,19 +50,26 @@ void mySphere::jump(float velocity, list<Platform*> p)
 {
 	list<Platform*> platforms = p;
 
+	Platform *current = nullptr;
+
 	//Collision detection (is the character coliding with the plattforms)
+	for (list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
+		if ( ( this->position.posX >= (*it)->LeftTop.posX ) && ( this->position.posX <= (*it)->RightTop.posX ) )
+		{
+			current = (*it);
+		}
+	}
 
 	// Falling of the edge
 	if (!isFalling && !isJumping)
 	{
-		for (list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
-
-			//Check if x position of character is not on top of a plattform
-			if (!((this->position.posX > (*it)->LeftTop.posX) && (this->position.posX < (*it)->RightTop.posX)))
-			{
-				this->isFalling = true;
-			}
+		//Check if x position of character is not on top of a plattform
+		if (!( (current != nullptr) && (this->position.posX > current->LeftTop.posX) && (this->position.posX < current->RightTop.posX)))
+		{
+			this->isFalling = true;
 		}
+		else
+			this->isFalling = false;
 	}
 	// Starts Jumping
 	else if ((this->position.posY <= this->inity + velocity) && (this->isJumping) && (!isFalling))
@@ -75,7 +82,7 @@ void mySphere::jump(float velocity, list<Platform*> p)
 		this->isFalling = true;
 	}
 	//Drops below the level
-	else if ((isFalling) && (this->position.posY < -10))
+	else if ((isFalling) && (this->position.posY < -15))
 	{
 		//Game Over
 		exit(0);
@@ -84,13 +91,12 @@ void mySphere::jump(float velocity, list<Platform*> p)
 	else if ((isFalling))
 	{
 		this->move(0, -.005f, 0);
-		for (list<Platform*>::iterator it = platforms.begin(); it != platforms.end(); it++) {
-
+		if(current != nullptr){
 			//Check if x position of character is on top of a plattform
-			if (( this->position.posX > (*it)->LeftTop.posX ) && (this->position.posX < (*it)->RightTop.posX ))
+			if (( this->position.posX > current->LeftTop.posX ) && (this->position.posX < current->RightTop.posX ))
 			{
 				//Check if y position of charcter toughing the plattform
-				if ( (this->position.posY -0.5 >= (*it)->LeftTop.posY - 0.5) && ( this->position.posY -0.5 <= (*it)->LeftTop.posY + 0.5) )
+				if ( (this->position.posY -0.5 >= current->LeftTop.posY - 0.5) && ( this->position.posY -0.5 <= current->LeftTop.posY + 0.5) )
 				{
 					this->isFalling = false;
 					this->isJumping = false;

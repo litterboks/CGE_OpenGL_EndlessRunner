@@ -20,7 +20,8 @@ mySphere *character = new mySphere(1.f, 20, 20, MyPoint(-12.f, -1.f, 1.f));
 GLfloat light0_position[4] = { 1.0, 1.0, 10.0, 1.0 };
 
 list<Platform*> platformlist = list<Platform*>();
-Platform *p = new Platform(-12.f, -4.f, 1.f, 2.f, 6.f, 1.f);
+Platform *p = new Platform(-12.f, -4.f, 1.f, 2.f, 7.f, 1.f);
+Platform *p2 = new Platform(0.f, -1.f, 1.f, 2.f, 15.f, 1.f);
 
 void moveLight();
 
@@ -115,8 +116,10 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(&keyPressed);
 	init(640, 480);
 	p->setTexture("roof.tga");
-	//platforms.push_back(*p);
+	p2->setTexture("roof.tga");
+
 	platformlist.push_back(p);
+	platformlist.push_back(p2);
 	glutMainLoop();
 	return 0;
 }
