@@ -161,7 +161,6 @@
     <ClInclude Include="glerror.cpp" />
     <ClInclude Include="glerror.h" />
     <ClInclude Include="graphic.h" />
-    <ClInclude Include="main.h" />
     <ClInclude Include="mypoint.h" />
     <ClInclude Include="mySphere.h" />
     <ClInclude Include="mytriangle.h" />

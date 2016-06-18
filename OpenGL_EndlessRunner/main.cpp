@@ -7,7 +7,6 @@
 #include "myrectangle.h"
 #include "mySphere.h"
 #include "Platform.h"
-#include "main.h"
 #include <math.h>
 
 using namespace std;
