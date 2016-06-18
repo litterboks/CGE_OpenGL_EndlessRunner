@@ -64,7 +64,12 @@ void display(void)
 	character->draw();
 
 	glutSwapBuffers();
+}
+
+void timer(int value)
+{
 	glutPostRedisplay();
+	glutTimerFunc(1000 / 60.0, &timer, 1);
 }
 
 void resize(int width, int height)
@@ -127,11 +132,11 @@ int main(int argc, char** argv)
 	glutDisplayFunc(&display);
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);
+	glutTimerFunc(1000 / 60.0, &timer, 1);
 	init(640, 480);
 	srand(time_t());
 	p->setTexture("roof.tga");
 	p2->setTexture("roof.tga");
-
 	platformlist.push_back(p);
 	platformlist.push_back(p2);
 	glutMainLoop();
