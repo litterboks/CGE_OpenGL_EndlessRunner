@@ -40,14 +40,12 @@ void display(void)
 
 	for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
 		it->draw();
-		it->move(-0.001,0,0);
+		it->move(-0.005,0,0);
 	}
-	// Move the world but not the character
-	glPushMatrix();
-		// Move the light around the character
-		moveLight();
-		character->draw();
-	glPopMatrix();
+	
+	// Move the light around the character
+	moveLight();
+	character->draw();
 
 
 
