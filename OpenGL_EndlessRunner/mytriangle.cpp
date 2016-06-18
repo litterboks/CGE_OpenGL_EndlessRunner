@@ -45,11 +45,6 @@ void MyTriangle::InitTexture()
 
 		return;
 	}
-	if (info2->width != info2->height) {
-		fprintf(stderr, "Image size %d x %d is not rectangular, giving up.\n",
-			info2->width, info2->height);
-		return;
-	}
 
 	mode = info2->pixelDepth / 8;  // will be 3 for rgb, 4 for rgba
 	glGenTextures(1, &texture2);
@@ -142,7 +137,7 @@ void MyTriangle::draw()
 	glNormal3f(normalX, normalY, normalZ);
 	glTexCoord2f(texCoord[0][0], texCoord[0][1]); glVertex3f(cornerA.posX, cornerA.posY, cornerA.posZ);
 	glTexCoord2f(texCoord[1][0], texCoord[1][1]); glVertex3f(cornerB.posX, cornerB.posY, cornerB.posZ);
-	glTexCoord2f(texCoord[2][1], texCoord[2][1]); glVertex3f(cornerC.posX, cornerC.posY, cornerC.posZ);
+	glTexCoord2f(texCoord[2][0], texCoord[2][1]); glVertex3f(cornerC.posX, cornerC.posY, cornerC.posZ);
 	glEnd();
 
 	glDisable(GL_TEXTURE_2D);

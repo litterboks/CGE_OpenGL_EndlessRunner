@@ -75,6 +75,9 @@
     <Image Include="house.tga">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="wall.tga">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Resources">

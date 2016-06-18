@@ -36,10 +36,9 @@ MyRectangle::MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D) {
 	triA->mapTexture(2, 1.f, 1.f);
 
 	triB = new MyTriangle(C, D, A);
-	triB->calculateNormal();
-	triB->mapTexture(0, 0.f, 0.f);
+	triB->mapTexture(0, 1.f, 1.f);
 	triB->mapTexture(1, 0.f, 1.f);
-	triB->mapTexture(2, 1.f, 1.f);
+	triB->mapTexture(2, 0.f, 0.f);
 
 	this->add(triA);
 	this->add(triB);

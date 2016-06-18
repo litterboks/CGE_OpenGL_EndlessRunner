@@ -185,6 +185,7 @@
     <Image Include="house.tga" />
     <Image Include="houseside.tga" />
     <Image Include="roof.tga" />
+    <Image Include="wall.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

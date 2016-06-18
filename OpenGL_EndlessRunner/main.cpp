@@ -27,7 +27,7 @@ void moveLight();
 
 void display(void)
 {
-	x_movement += 0.001f;
+	x_movement += 0.02f;
 	glClearColor(0.0, 0.7, 1.0, 1.0); // sky color is light blue
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -41,7 +41,7 @@ void display(void)
 
 	for (list<Platform*>::iterator it = platformlist.begin(); it != platformlist.end(); it++) {
 		(*it)->draw();
-		(*it)->move(-0.005,0,0);
+		(*it)->move(-0.2,0,0);
 	}
 
 	float rightEnd = platformlist.back()->RightTop.posX;
@@ -69,7 +69,7 @@ void display(void)
 void timer(int value)
 {
 	glutPostRedisplay();
-	glutTimerFunc(1000 / 60.0, &timer, 1);
+	glutTimerFunc(1000/60, &timer, 1);
 }
 
 void resize(int width, int height)
@@ -135,8 +135,8 @@ int main(int argc, char** argv)
 	glutTimerFunc(1000 / 60.0, &timer, 1);
 	init(640, 480);
 	srand(time_t());
-	p->setTexture("roof.tga");
-	p2->setTexture("roof.tga");
+	p->setTexture("wall.tga");
+	p2->setTexture("wall.tga");
 	platformlist.push_back(p);
 	platformlist.push_back(p2);
 	glutMainLoop();
