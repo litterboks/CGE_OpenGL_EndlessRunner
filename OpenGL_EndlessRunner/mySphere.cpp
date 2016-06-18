@@ -96,7 +96,7 @@ void mySphere::jump(float velocity, list<Platform*> p)
 			if (( this->position.posX > current->LeftTop.posX ) && (this->position.posX < current->RightTop.posX ))
 			{
 				//Check if y position of charcter toughing the plattform
-				if ( (this->position.posY -0.5 >= current->LeftTop.posY - 0.5) && ( this->position.posY -0.5 <= current->LeftTop.posY + 0.5) )
+				if ( (this->position.posY - this->radius >= current->LeftTop.posY - this->radius) && ( this->position.posY - this->radius <= current->LeftTop.posY + this->radius) )
 				{
 					this->isFalling = false;
 					this->isJumping = false;
