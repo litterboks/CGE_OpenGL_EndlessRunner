@@ -74,7 +74,7 @@ void mySphere::jump(float velocity, list<Platform*> p)
 	// Starts Jumping
 	else if ((this->position.posY <= this->inity + velocity) && (this->isJumping) && (!isFalling))
 	{
-		this->move(0, .005f, 0);
+		this->move(0, .15f, 0);
 	}
 	// Starts Falling after jumping
 	else if ((this->position.posY >= this->inity + velocity) && (this->isJumping) && (!isFalling))
@@ -90,7 +90,7 @@ void mySphere::jump(float velocity, list<Platform*> p)
 	// Is currently Falling
 	else if ((isFalling))
 	{
-		this->move(0, -.005f, 0);
+		this->move(0, -.15f, 0);
 		if(current != nullptr){
 			//Check if x position of character is on top of a plattform
 			if (( this->position.posX > current->LeftTop.posX ) && (this->position.posX < current->RightTop.posX ))
