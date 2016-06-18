@@ -8,19 +8,34 @@
 #include "houserow.h"
 #include "mySphere.h"
 #include "main.h"
+#include <math.h>
 
 int window;
 float rotation_x, rotation_y, rotation_z;
 int animating = 1;
 float rot = 0;
 float velocity_y;
-//House h1 = House(.0f, -1.0f, 1.0f);
 mySphere *character = new mySphere(1.f, 20, 20, MyPoint(-5.f, -1.f, 1.f));
+GLfloat light0_position[] = { 1.0, 1.0, 10.0, 1.0 };
+
+void moveLight()
+{
+	rot += .05;
+	glPushMatrix();
+	glTranslatef(character->position.posX, character->position.posY, character->position.posZ);
+	glRotatef(rot, 0, 0, 1);
+	GLfloat light0_pos[4] = { light0_position[0] - character->position.posX, light0_position[1] - character->position.posY, light0_position[2] - character->position.posZ, 1 };
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
+	glPopMatrix();
+}
 
 void display(void)
 {
 	glClearColor(0.0, 0.7, 1.0, 1.0); // sky color is light blue
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	moveLight();
+
 	glLoadIdentity();
 	glTranslatef(0, 0, -15);
 	character->jump(velocity_y);
@@ -45,11 +60,10 @@ void init(int width, int height)
 {
 	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat mat_shininess[] = { 5.0 };
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);

@@ -24,12 +24,12 @@ public:
 	virtual void setTexture(std::string texture);
 	bool isJumping;
 	bool isFalling;
+	MyPoint position;
 
 private:
 	float radius;
 	unsigned int slices;
 	unsigned int stacks;
-	MyPoint position;
 	char* texture;
 	GLuint texture2;
 	float inity;
