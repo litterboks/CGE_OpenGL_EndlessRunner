@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_DEPRECATE
-
+#include <iostream>
 #include "myrectangle.h"
 #include "mypoint.h"
 #ifndef _GLUT
@@ -28,6 +28,22 @@ MyRectangle::MyRectangle(float posX = 0, float posY = 0, float posZ = 0, float h
 	triB.mapTexture(2, 1.f, 1.f);
 }
 
+MyRectangle::MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D) {
+	triA = MyTriangle(A, B, C);
+	triA.mapTexture(0, 0.f, 0.f);
+	triA.mapTexture(1, 1.f, 0.f);
+	triA.mapTexture(2, 1.f, 1.f);
+
+	triB = MyTriangle(C, D, A);
+	triB.calculateNormal();
+	triB.mapTexture(0, 0.f, 0.f);
+	triB.mapTexture(1, 0.f, 1.f);
+	triB.mapTexture(2, 1.f, 1.f);
+}
+
+MyRectangle::~MyRectangle() {
+	std::cout << "Rectangle destroyed" << std::endl;
+}
 
 void MyRectangle::draw()
 {

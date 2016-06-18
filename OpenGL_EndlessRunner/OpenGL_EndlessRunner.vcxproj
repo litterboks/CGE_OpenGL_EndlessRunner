@@ -161,25 +161,23 @@
     <ClInclude Include="glerror.cpp" />
     <ClInclude Include="glerror.h" />
     <ClInclude Include="graphic.h" />
-    <ClInclude Include="house.h" />
-    <ClInclude Include="houserow.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="mypoint.h" />
     <ClInclude Include="mySphere.h" />
     <ClInclude Include="mytriangle.h" />
     <ClInclude Include="myrectangle.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="tga.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="compositeGraphic.cpp" />
     <ClCompile Include="graphic.cpp" />
-    <ClCompile Include="house.cpp" />
-    <ClCompile Include="houserow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mypoint.cpp" />
     <ClCompile Include="myrectangle.cpp" />
     <ClCompile Include="mySphere.cpp" />
     <ClCompile Include="mytriangle.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="tga.cpp" />
   </ItemGroup>
   <ItemGroup>

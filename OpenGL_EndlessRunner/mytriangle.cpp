@@ -20,7 +20,9 @@ MyTriangle::MyTriangle() {
 }
 
 MyTriangle::~MyTriangle() {
+	if (this->texture != nullptr) {
 	delete(this->texture);
+}
 	std::cout << "destroying triangle"<< std::endl;
 }
 

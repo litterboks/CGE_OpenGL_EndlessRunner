@@ -10,6 +10,10 @@ class MyRectangle : public Graphic {
 public:
 	MyRectangle(float posX, float posY, float posZ, float height, float width, float rotX, float rotY, float rotZ);
 
+	MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D);
+
+	~MyRectangle();
+
 	virtual void draw();
 	virtual void move(float, float, float);
 	virtual void scale(float, float, float);

@@ -7,12 +7,6 @@
     <ClCompile Include="graphic.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="house.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="houserow.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -31,15 +25,12 @@
     <ClCompile Include="tga.cpp">
       <Filter>Header</Filter>
     </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glerror.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="houserow.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="house.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="graphic.h">
@@ -67,6 +58,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="mySphere.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
