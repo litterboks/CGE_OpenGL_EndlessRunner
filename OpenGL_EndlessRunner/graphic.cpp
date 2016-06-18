@@ -34,6 +34,10 @@ void Graphic::remove(Graphic * graphic)
 {
 }
 
+void Graphic::setTexture(std::string texture)
+{
+}
+
 typename std::list<typename Graphic*>::iterator* Graphic::CreateIterator()
 {
 	return new std::list<typename Graphic*>::iterator();

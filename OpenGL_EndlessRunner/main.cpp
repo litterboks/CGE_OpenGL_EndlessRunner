@@ -2,20 +2,21 @@
 #include <stdio.h>
 #include <iostream>
 #include <glut.h>
+#include <vector>
 
 #include "myrectangle.h"
-#include "house.h"
-#include "houserow.h"
 #include "mySphere.h"
+#include "Platform.h"
 #include "main.h"
-
+using namespace std;
 int window;
 float rotation_x, rotation_y, rotation_z;
 int animating = 1;
 float rot = 0;
 float velocity_y;
-//House h1 = House(.0f, -1.0f, 1.0f);
 mySphere *character = new mySphere(1.f, 20, 20, MyPoint(-5.f, -1.f, 1.f));
+vector<Platform> platforms;
+Platform *p = new Platform(-2.f, -1.f, 1.f, 2.f, 5.f, 2.f);
 
 void display(void)
 {
@@ -25,6 +26,9 @@ void display(void)
 	glTranslatef(0, 0, -15);
 	character->jump(velocity_y);
 	character->draw();
+	for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
+		it->draw();
+	}
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -91,6 +95,8 @@ int main(int argc, char** argv)
 	glutReshapeFunc(&resize);
 	glutKeyboardFunc(&keyPressed);
 	init(640, 480);
+	p->setTexture("roof.tga");
+	platforms.push_back(*p);
 	glutMainLoop();
 	return 0;
 }

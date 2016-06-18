@@ -20,6 +20,7 @@ public:
 
 	virtual void add(Graphic* graphic);
 	virtual void remove(Graphic* graphic);
+	virtual void setTexture(std::string texture);
 	typename std::list<typename Graphic*>::iterator* CreateIterator();
 
 protected:

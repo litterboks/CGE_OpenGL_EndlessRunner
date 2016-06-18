@@ -42,7 +42,7 @@ private:
 	float normalX=0.f;
 	float normalY=0.f;
 	float normalZ=0.f;
-	char* texture;
+	char* texture = nullptr;
 	bool flipped = false;
 	void InitTexture();
 };
