@@ -3,6 +3,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+//Simple class for storing coordinates of points
+
 MyPoint::MyPoint()
 {
 }
@@ -14,18 +16,21 @@ MyPoint::MyPoint(float posX, float posY, float posZ)
 	this->posZ = posZ;
 }
 
+//moves point in given directions
 void MyPoint::move(float offsetX, float offsetY, float offsetZ) {
 	this->posX += offsetX;
 	this->posY += offsetY;
 	this->posZ += offsetZ;
 }
 
+//scale function for points
 void MyPoint::multiply(float multiplierX, float multiplierY, float multiplierZ) {
 	this->posX *= multiplierX;
 	this->posY *= multiplierY;
 	this->posZ *= multiplierZ;
 }
 
+//rotate around basePoint, transformAngle in degrees, axis char x,y or z
 void MyPoint::rotate(MyPoint basePoint, float transformAngle, char axis) {
 	float diagonal = 0.0f;
 	float angle = 0.0f;

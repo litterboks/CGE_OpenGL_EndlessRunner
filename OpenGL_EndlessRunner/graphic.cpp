@@ -21,7 +21,7 @@ void Graphic::scale(float, float, float)
 {
 }
 
-void Graphic::rotate(MyPoint basePoint, float, float)
+void Graphic::rotate(MyPoint basePoint, float angle, char axis)
 {
 }
 
@@ -36,9 +36,4 @@ void Graphic::remove(Graphic * graphic)
 
 void Graphic::setTexture(std::string texture)
 {
-}
-
-typename std::list<typename Graphic*>::iterator* Graphic::CreateIterator()
-{
-	return new std::list<typename Graphic*>::iterator();
 }

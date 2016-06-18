@@ -9,68 +9,42 @@
 #include <GL/glu.h>  
 #endif
 #include "tga.h"
-//#include "glerror.h"
-
-
 
 MyRectangle::MyRectangle(float posX = 0, float posY = 0, float posZ = 0, float height = 1, float width = 1, float rotX = 0, float rotY = 0, float rotZ = 0) {
 
-	triA = MyTriangle(posX, posY, posZ, height, width, rotX, rotY, rotZ);
-	triA.mapTexture(0, 0.f, 0.f);
-	triA.mapTexture(1, 1.f, 0.f);
-	triA.mapTexture(2, 1.f, 1.f);
+	MyTriangle* triA = new MyTriangle(posX, posY, posZ, height, width, rotX, rotY, rotZ);
+	triA->mapTexture(0, 0.f, 0.f);
+	triA->mapTexture(1, 1.f, 0.f);
+	triA->mapTexture(2, 1.f, 1.f);
 
-	triB = MyTriangle(MyPoint(posX, posY, posZ), MyPoint(posX, posY+height, posZ), MyPoint(posX+width,posY+height,posZ));
-	triB.flipNormals();
-	triB.calculateNormal();
-	triB.mapTexture(0, 0.f, 0.f);
-	triB.mapTexture(1, 0.f, 1.f);
-	triB.mapTexture(2, 1.f, 1.f);
+	MyTriangle* triB = new MyTriangle(MyPoint(posX, posY, posZ), MyPoint(posX, posY+height, posZ), MyPoint(posX+width,posY+height,posZ));
+	triB->flipNormals();
+	triB->calculateNormal();
+	triB->mapTexture(0, 0.f, 0.f);
+	triB->mapTexture(1, 0.f, 1.f);
+	triB->mapTexture(2, 1.f, 1.f);
+
+	this->add(triA);
+	this->add(triB);
 }
 
+//constructor for given points
 MyRectangle::MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D) {
-	triA = MyTriangle(A, B, C);
-	triA.mapTexture(0, 0.f, 0.f);
-	triA.mapTexture(1, 1.f, 0.f);
-	triA.mapTexture(2, 1.f, 1.f);
+	MyTriangle* triA = new MyTriangle(A, B, C);
+	triA->mapTexture(0, 0.f, 0.f);
+	triA->mapTexture(1, 1.f, 0.f);
+	triA->mapTexture(2, 1.f, 1.f);
 
-	triB = MyTriangle(C, D, A);
-	triB.calculateNormal();
-	triB.mapTexture(0, 0.f, 0.f);
-	triB.mapTexture(1, 0.f, 1.f);
-	triB.mapTexture(2, 1.f, 1.f);
+	MyTriangle* triB = new MyTriangle(C, D, A);
+	triB->calculateNormal();
+	triB->mapTexture(0, 0.f, 0.f);
+	triB->mapTexture(1, 0.f, 1.f);
+	triB->mapTexture(2, 1.f, 1.f);
+
+	this->add(triA);
+	this->add(triB);
 }
 
 MyRectangle::~MyRectangle() {
 	std::cout << "Rectangle destroyed" << std::endl;
-}
-
-void MyRectangle::draw()
-{
-	triA.draw();
-	triB.draw();
-}
-
-void MyRectangle::move(float x, float y, float z)
-{
-	triA.move(x, y, z);
-	triB.move(x, y, z);
-}
-
-void MyRectangle::scale(float x, float y, float z)
-{
-	triA.scale(x, y, z);
-	triB.scale(x, y, z);
-}
-
-void MyRectangle::rotate(MyPoint basePoint, float transformAngle, char axis)
-{
-	triA.rotate(basePoint, transformAngle, axis);
-	triB.rotate(basePoint, transformAngle, axis);
-}
-
-void MyRectangle::setTexture(std::string texture)
-{
-	triA.setTexture(texture);
-	triB.setTexture(texture);
 }

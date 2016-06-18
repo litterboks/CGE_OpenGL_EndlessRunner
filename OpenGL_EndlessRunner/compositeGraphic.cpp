@@ -10,11 +10,6 @@ void CompositeGraphic::remove(Graphic * graphic)
 	this->_graphic.remove(graphic);
 }
 
-typename std::list<typename Graphic*>::iterator* CompositeGraphic::CreateIterator()
-{
-	return new std::list<typename Graphic*>::iterator();
-}
-
 void CompositeGraphic::draw() {
 	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
 		(*it)->draw();
@@ -39,6 +34,13 @@ void CompositeGraphic::scale(float x, float y, float z)
 void CompositeGraphic::rotate(MyPoint basePoint, float angle, char axis) {
 	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
 		(*it)->rotate(basePoint, angle, axis);
+	}
+}
+
+void CompositeGraphic::setTexture(std::string texture)
+{
+	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
+		(*it)->setTexture(texture);
 	}
 }
 
