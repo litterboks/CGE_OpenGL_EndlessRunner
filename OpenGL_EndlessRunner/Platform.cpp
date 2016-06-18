@@ -9,6 +9,9 @@ Platform::Platform(float posX, float posY, float posZ, float height, float width
 	MyPoint C = MyPoint(posX + width, posY + height, posZ);
 	MyPoint D = MyPoint(posX, posY + height, posZ);
 
+	this->LeftTop = D;
+	this->RightTop = C;
+
 	MyPoint E = A;
 	E.posZ += depth;
 	MyPoint F = B;
@@ -41,7 +44,23 @@ void Platform::setTexture(std::string texture) {
 
 Platform::~Platform()
 {
-	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
+	/*for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
 		delete(*it);
+	}*/
+}
+
+void Platform::move(float x, float y, float z)
+{
+	this->LeftTop.posX += x;
+	this->LeftTop.posY += y;
+	this->LeftTop.posZ += z;
+
+
+	this->RightTop.posX += x;
+	this->RightTop.posY += y;
+	this->RightTop.posZ += z;
+
+	for (std::list<Graphic*>::iterator it = this->_graphic.begin(); it != this->_graphic.end(); it++) {
+		(*it)->move(x, y, z);
 	}
 }

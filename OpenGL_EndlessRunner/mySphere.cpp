@@ -1,5 +1,6 @@
 #include "mySphere.h"
 #include "tga.h"
+#include <iostream>
 
 
 mySphere::mySphere(float radius, unsigned int slices, unsigned int stacks, MyPoint position)
@@ -44,24 +45,58 @@ void mySphere::rotate(MyPoint basePoint, float transformAngle, char axis)
 {
 
 }
-void mySphere::jump(float velocity)
+
+void mySphere::jump(float velocity, vector<Platform> p)
 {
-	if ((this->position.posY <= this->inity + velocity) && (this->isJumping) && (!isFalling))
+	vector<Platform> platforms = p;
+
+	//Collision detection (is the character coliding with the plattforms)
+
+	// Falling of the edge
+	if (!isFalling && !isJumping)
 	{
-		this->move(0, .01f, 0);
+		for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
+
+			//Check if x position of character is not on top of a plattform
+			if (!((this->position.posX > (*it).LeftTop.posX) && (this->position.posX < (*it).RightTop.posX)))
+			{
+				this->isFalling = true;
+			}
+		}
 	}
+	// Starts Jumping
+	else if ((this->position.posY <= this->inity + velocity) && (this->isJumping) && (!isFalling))
+	{
+		this->move(0, .005f, 0);
+	}
+	// Starts Falling after jumping
 	else if ((this->position.posY >= this->inity + velocity) && (this->isJumping) && (!isFalling))
 	{
 		this->isFalling = true;
 	}
-	else if ((isFalling) && (this->position.posY >= this->inity))
+	//Drops below the level
+	else if ((isFalling) && (this->position.posY < -10))
 	{
-		this->move(0, -.01f, 0);
+		//Game Over
+		exit(0);
 	}
-	else if (isFalling && (this->position.posY <= this->inity))
+	// Is currently Falling
+	else if ((isFalling))
 	{
-		this->isJumping = false;
-		this->isFalling = false;
+		this->move(0, -.005f, 0);
+		for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
+
+			//Check if x position of character is on top of a plattform
+			if (( this->position.posX > (*it).LeftTop.posX ) && (this->position.posX < (*it).RightTop.posX ))
+			{
+				//Check if y position of charcter toughing the plattform
+				if ( (this->position.posY -0.5 >= (*it).LeftTop.posY - 0.5) && ( this->position.posY -0.5 <= (*it).LeftTop.posY + 0.5) )
+				{
+					this->isFalling = false;
+					this->isJumping = false;
+				}
+			}
+		}
 	}
 }
 void mySphere::InitTexture()

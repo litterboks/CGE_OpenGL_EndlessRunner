@@ -22,7 +22,7 @@ GLfloat light0_position[] = { 1.0, 1.0, 10.0, 1.0 };
 
 void moveLight();
 vector<Platform> platforms;
-Platform *p = new Platform(-3.f, -4.f, 1.f, 2.f, 6.f, 1.f);
+Platform *p = new Platform(-5.f, -4.f, 1.f, 2.f, 6.f, 1.f);
 
 void display(void)
 {
@@ -33,17 +33,17 @@ void display(void)
 	glLoadIdentity();
 
 	// Move the world
-	glTranslatef(-x_movement, 0, -15);
-
+	glTranslatef(0, 0, -15);
+	
 	// lets the character jump if velocity_y is > 0
-	character->jump(velocity_y);
+	character->jump(velocity_y, platforms);
 
 	for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
 		it->draw();
+		it->move(-0.001,0,0);
 	}
 	// Move the world but not the character
 	glPushMatrix();
-		glTranslatef(x_movement, 0, 0);
 		// Move the light around the character
 		moveLight();
 		character->draw();
