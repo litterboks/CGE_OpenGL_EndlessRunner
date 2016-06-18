@@ -30,12 +30,12 @@ MyRectangle::MyRectangle(float posX = 0, float posY = 0, float posZ = 0, float h
 
 //constructor for given points
 MyRectangle::MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D) {
-	MyTriangle* triA = new MyTriangle(A, B, C);
+	triA = new MyTriangle(A, B, C);
 	triA->mapTexture(0, 0.f, 0.f);
 	triA->mapTexture(1, 1.f, 0.f);
 	triA->mapTexture(2, 1.f, 1.f);
 
-	MyTriangle* triB = new MyTriangle(C, D, A);
+	triB = new MyTriangle(C, D, A);
 	triB->calculateNormal();
 	triB->mapTexture(0, 0.f, 0.f);
 	triB->mapTexture(1, 0.f, 1.f);
@@ -43,8 +43,4 @@ MyRectangle::MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D) {
 
 	this->add(triA);
 	this->add(triB);
-}
-
-MyRectangle::~MyRectangle() {
-	std::cout << "Rectangle destroyed" << std::endl;
 }

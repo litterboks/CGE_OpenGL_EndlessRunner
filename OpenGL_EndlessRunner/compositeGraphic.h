@@ -12,7 +12,7 @@ For example the Platform consisting of 6 MyRectangles*/
 class CompositeGraphic : public Graphic {
 public:
 	//Draws all subgraphics
-	virtual void draw();
+	virtual void draw() override;
 	//Moves all subgraphics
 	virtual void move(float x,float y,float z);
 	//Scales all subgraphics
@@ -21,6 +21,7 @@ public:
 	void rotate(MyPoint basePoint, float angle, char axis);
 	//Sets texture to all subgraphics
 	void setTexture(std::string texture);
+	~CompositeGraphic();
 	//Adds a subgraphic
 	void add(Graphic* graphic);
 	//Removes a subgraphic

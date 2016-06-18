@@ -20,11 +20,11 @@ public:
 	//Constructor with given Points
 	MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D);
 
-	~MyRectangle();
-
 private:
 	//Stored texture string
 	char* texture;
+	MyTriangle* triA;
+	MyTriangle* triB;
 };
 
 #endif

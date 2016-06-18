@@ -13,10 +13,8 @@ public:
 	//Contructor with position of lower left point's coordinates, height, width and depth where depth
 	Platform(float posX, float posY, float posZ, float height, float width, float depth);
 
-	//Applies the texture to all subobjects
-	void setTexture(std::string texture);
-	~Platform();
-	void move(float x, float y, float z);
+	//Moves all subobjects
+	void move(float x, float y, float z) override;
 	MyPoint LeftTop;
 	MyPoint RightTop;
 };

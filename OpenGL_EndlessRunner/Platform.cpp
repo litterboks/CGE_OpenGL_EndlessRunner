@@ -36,25 +36,11 @@ Platform::Platform(float posX, float posY, float posZ, float height, float width
 
 }
 
-void Platform::setTexture(std::string texture) {
-	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
-		(*it)->setTexture(texture);
-	}
-}
-
-Platform::~Platform()
-{
-	/*for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
-		delete(*it);
-	}*/
-}
-
 void Platform::move(float x, float y, float z)
 {
 	this->LeftTop.posX += x;
 	this->LeftTop.posY += y;
 	this->LeftTop.posZ += z;
-
 
 	this->RightTop.posX += x;
 	this->RightTop.posY += y;

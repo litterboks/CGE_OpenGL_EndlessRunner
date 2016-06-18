@@ -36,9 +36,6 @@
     <ClInclude Include="graphic.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="mypoint.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -63,6 +60,7 @@
     <ClInclude Include="Platform.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="houseside.tga">

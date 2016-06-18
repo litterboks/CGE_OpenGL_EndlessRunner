@@ -16,7 +16,7 @@ public:
 
 	void flipNormals();
 
-	virtual void draw();
+	void draw() override;
 	void mapTexture(int texCoordSel, float u, float v);
 	virtual void move(float, float, float);
 	virtual void scale(float, float, float);

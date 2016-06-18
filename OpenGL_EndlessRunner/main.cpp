@@ -8,8 +8,8 @@
 #include "mySphere.h"
 #include "Platform.h"
 #include <math.h>
+#include "main.h"
 
-using namespace std;
 int window;
 float rotation_x, rotation_y, rotation_z;
 int animating = 1;
@@ -17,11 +17,13 @@ float rot = 0;
 float velocity_y;
 float x_movement = .01f;
 mySphere *character = new mySphere(1.f, 20, 20, MyPoint(-5.f, -1.f, 1.f));
-GLfloat light0_position[] = { 1.0, 1.0, 10.0, 1.0 };
+GLfloat light0_position[4] = { 1.0, 1.0, 10.0, 1.0 };
+
+vector<Platform> platforms;
+list<Platform*> platformlist = list<Platform*>();
+Platform *p = new Platform(-5.f, -4.f, 1.f, 2.f, 6.f, 1.f);
 
 void moveLight();
-vector<Platform> platforms;
-Platform *p = new Platform(-5.f, -4.f, 1.f, 2.f, 6.f, 1.f);
 
 void display(void)
 {
@@ -37,9 +39,9 @@ void display(void)
 	// lets the character jump if velocity_y is > 0
 	character->jump(velocity_y, platforms);
 
-	for (vector<Platform>::iterator it = platforms.begin(); it < platforms.end(); it++) {
-		it->draw();
-		it->move(-0.005,0,0);
+	for (list<Platform*>::iterator it = platformlist.begin(); it != platformlist.end(); it++) {
+		(*it)->draw();
+		(*it)->move(-0.005,0,0);
 	}
 	
 	// Move the light around the character
@@ -114,7 +116,8 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(&keyPressed);
 	init(640, 480);
 	p->setTexture("roof.tga");
-	platforms.push_back(*p);
+	//platforms.push_back(*p);
+	platformlist.push_back(p);
 	glutMainLoop();
 	return 0;
 }
@@ -128,4 +131,13 @@ void moveLight()
 	GLfloat light0_pos[4] = { light0_position[0] - character->position.posX, light0_position[1] - character->position.posY, light0_position[2] - character->position.posZ, 1 };
 	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
 	glPopMatrix();
+}
+
+Main::Main()
+{
+}
+
+
+Main::~Main()
+{
 }

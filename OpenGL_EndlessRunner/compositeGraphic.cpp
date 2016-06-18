@@ -1,5 +1,11 @@
 #include "compositeGraphic.h"
 
+CompositeGraphic::~CompositeGraphic() {
+	for (std::list<Graphic*>::iterator it = _graphic.begin(); it != _graphic.end(); ++it) {
+		(*it)->~Graphic();
+	}
+ }
+
 void CompositeGraphic::add(Graphic * graphic)
 {
 	this->_graphic.push_back(graphic);
