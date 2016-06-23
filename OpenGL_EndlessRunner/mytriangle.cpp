@@ -132,6 +132,12 @@ void MyTriangle::draw()
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glBindTexture(GL_TEXTURE_2D, texture2);
+	GLfloat mat_shininess[] = { 5.0 };
+	GLfloat whiteMaterial[] = { 1.0, 1.0, 1.0 };
+	GLfloat blankMaterial[] = { 0.0, 0.0, 0.0 };
+
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, whiteMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, whiteMaterial);
 
 	glBegin(GL_TRIANGLES);
 	glNormal3f(normalX, normalY, normalZ);
@@ -139,6 +145,8 @@ void MyTriangle::draw()
 	glTexCoord2f(texCoord[1][0], texCoord[1][1]); glVertex3f(cornerB.posX, cornerB.posY, cornerB.posZ);
 	glTexCoord2f(texCoord[2][0], texCoord[2][1]); glVertex3f(cornerC.posX, cornerC.posY, cornerC.posZ);
 	glEnd();
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, whiteMaterial);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, blankMaterial);
 
 	glDisable(GL_TEXTURE_2D);
 }

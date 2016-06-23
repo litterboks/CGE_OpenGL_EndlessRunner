@@ -22,17 +22,27 @@ Platform::Platform(float posX, float posY, float posZ, float height, float width
 	H.posZ += depth;
 
 	//Front
-	this->add(new MyRectangle(A, B, C, D));
+	MyRectangle* front = new MyRectangle(A, B, C, D);
+	this->add(front);
 	//Back
-	this->add(new MyRectangle(E, F, G, H));
+	MyRectangle* back = new MyRectangle(E, F, G, H);
+	this->add(back);
 	//Left
-	this->add(new MyRectangle(A, D, H, E));
+	MyRectangle* left = new MyRectangle(A, D, H, E);
+	left->flipNormals();
+	this->add(left);
 	//Right
-	this->add(new MyRectangle(B, F, G, C));
+	MyRectangle* right = new MyRectangle(B, F, G, C);
+	right->flipNormals();
+	this->add(right);
 	//Bottom
-	this->add(new MyRectangle(A, B, F, E));
+	MyRectangle* bottom = new MyRectangle(A, B, F, E);
+	bottom->flipNormals();
+	this->add(bottom);
 	//Top
-	this->add(new MyRectangle(D, C, G, H));
+	MyRectangle* top = new MyRectangle(D, C, G, H);
+	top->flipNormals();
+	this->add(top);
 
 }
 

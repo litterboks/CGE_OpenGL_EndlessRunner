@@ -43,3 +43,9 @@ MyRectangle::MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D) {
 	this->add(triA);
 	this->add(triB);
 }
+
+void MyRectangle::flipNormals()
+{
+	triA->flipNormals();
+	triB->flipNormals();
+}

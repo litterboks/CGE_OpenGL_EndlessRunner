@@ -20,6 +20,9 @@ public:
 	//Constructor with given Points
 	MyRectangle(MyPoint A, MyPoint B, MyPoint C, MyPoint D);
 
+	//Flips normals of stored Triangles
+	void flipNormals();
+
 private:
 	//Stored texture string
 	char* texture;

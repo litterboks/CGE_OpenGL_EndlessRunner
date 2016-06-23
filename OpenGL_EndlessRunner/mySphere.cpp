@@ -19,14 +19,25 @@ mySphere::~mySphere()
 
 void mySphere::draw()
 {
-	GLfloat blankMaterial[] = { 0.0, 0.0, 0.0 };
-	GLfloat redDiffuseMaterial[] = { 1.0, 0.0, 0.0 };
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, redDiffuseMaterial);
+	GLfloat mat_shininess[] = { 20.0f };
+	GLfloat blankMaterial[] = { 0.0f, 0.0f, 0.0f };
+	GLfloat redDiffuseMaterial[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	GLfloat redAmbientMaterial[] = { 0.6f, 0.0f, 0.0f, 1.0f };
+	GLfloat mat_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, redDiffuseMaterial);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, redAmbientMaterial);
+
 	glPushMatrix();
 		glTranslatef(this->position.posX, this->position.posY, this->position.posZ);
 		glutSolidSphere(this->radius, this->slices, this->stacks);
 	glPopMatrix();
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, blankMaterial);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, blankMaterial);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, blankMaterial);
+	glMaterialfv(GL_FRONT, GL_SHININESS, blankMaterial);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, blankMaterial);
 }
 
 void mySphere::move(float x, float y , float z)
@@ -36,14 +47,12 @@ void mySphere::move(float x, float y , float z)
 	position.posZ += z;
 }
 
-void mySphere::scale(float, float, float){
-
-
+void mySphere::scale(float, float, float)
+{
 }
 
 void mySphere::rotate(MyPoint basePoint, float transformAngle, char axis)
 {
-
 }
 
 void mySphere::jump(float velocity, list<Platform*> p)
@@ -126,6 +135,7 @@ void mySphere::InitTexture()
 	glGenTextures(1, &texture2);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture2);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
